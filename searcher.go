@@ -2,11 +2,12 @@ package fulltext
 
 import (
 	"encoding/gob"
-	"github.com/jbarham/go-cdb"
-	"github.com/spf13/afero"
 	"io"
 	"io/ioutil"
 	"sort"
+
+	"github.com/jbarham/cdb"
+	"github.com/spf13/afero"
 )
 
 // Interface for search.  Not thread-safe, but low overhead
@@ -49,7 +50,6 @@ type SearchResults struct {
 
 // NewSearcher creates a new searcher instance from the given index file.
 func NewSearcher(indexFile afero.File) (*Searcher, error) {
-
 	s := &Searcher{}
 
 	s.file = indexFile
@@ -75,7 +75,6 @@ func (s *Searcher) Close() error {
 
 // Perform a search
 func (s *Searcher) SimpleSearch(search string, maxn int) (SearchResults, error) {
-
 	sr := SearchResults{}
 
 	// break search into words_word
@@ -149,5 +148,4 @@ func (s *Searcher) SimpleSearch(search string, maxn int) (SearchResults, error) 
 	sr.Items = items
 
 	return sr, nil
-
 }

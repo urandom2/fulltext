@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"encoding/gob"
 	"fmt"
-	"github.com/jbarham/go-cdb"
-	"github.com/spf13/afero"
 	"io"
+
+	"github.com/jbarham/cdb"
+	"github.com/spf13/afero"
 )
 
 // Size of header block to prepend - make it 4k to align disk reads
@@ -33,7 +34,6 @@ type IndexDoc struct {
 
 // NewIndexer creates a new indexer.
 func NewIndexer() (*Indexer, error) {
-
 	var indexFs afero.Fs = &afero.MemMapFs{}
 
 	idx := &Indexer{}
@@ -92,7 +92,6 @@ func (idx *Indexer) AddDoc(idoc IndexDoc) error {
 // Builds a final single index file, which consists of some simple header info,
 // followed by the cdb binary files that comprise the full index.
 func (idx *Indexer) FinalizeAndWrite(w io.Writer) error {
-
 	var buf bytes.Buffer
 
 	// write out the word data
